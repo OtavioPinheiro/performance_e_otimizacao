@@ -20,3 +20,19 @@ Curso com o objetivo de apresentar algumas técnicas de otimização na linguage
 - `make_shared()` é usado para criar o ponteiro e não podemos usa-lo com a palavra `new`.
 - Enquanto houver referências do ponteiro `shared_ptr`, o destrutor da classe na qual o ponteiro se refere (e.g. std::shared_ptr<Usuario> usuario = std::make_shared<Usuario>("Teste"); neste caso o ponteiro se refere a Usuario) não será chamado. Só será chamado quando todas as referências que apontam para a referida instância deixar de existir, ou seja, enquanto houver cópias da instancia.
 - Para saber mais sobre _Smart Pointers_: [SMART POINTERS in C++](https://www.youtube.com/watch?v=UOB7-B2MfwA)
+
+## Copy Constructor
+- _Copy Constructor_ ou Construtor de cópia é quando criamos um objeto a partir de outro. E.g. `Objeto(const Objeto&);`. Na implementação devemos copiar todos os valores de um objeto para outro, e.g. `Objeto::Objeto(const Objeto& objetoCopia) : valor1(objetoCopia.valor1), valor2(objetoCopia.valor2), ... {...}`
+- Para impedir a cópia do construtor devemos fazer: `Objeto(const Objeto&) = delete`.
+- Por padrão o Copy Constructor é definido da seguinte maneira `Objeto(const Objeto&) = default`.
+- O cenário ideal é nunca precisar criar diretamente o _Copy Constructor_. Pela _Rule of zero_:
+  - Zero _Copy Constructor_
+  - Zero _Move Construtor_
+  - Nenhum operador de atribuição
+- O ideal é ter nossas propriedades contendo valores que já são gerenciados, que são autogerenciados e que não precisamos fazer a gestão.
+- Os cenários onde precisaremos fazer a reescrita de algumas funções e classes é quando buscamos atingir uma maior performance (desempenho). O caso mais famoso a ser citado é da empresa de jogo EA que reecreveu classes como `vector`, `map`, `array`.
+- Precisamos de _Copy Constructor_ para cenários de baixo nível, quando estamos manipulando ponteiros diretamente e alocando memória. Porém, nesses cenários é possível que haja o _undefined behavior_ (comportamento indefinido ou inesperado). Normalmente isso pode ocorrer quando temos duas instâncias de um objeto apontando para o mesmo endereço de memória, quando o operador `delete` for chamado para a primeira instância, o endereço de memória será liberado, porém, ao chamar novamente o operador `delete` para a segunda instância, o operador irá tentar liberar o mesmo endereço de memória que já foi liberado anteriormente pela primeira instância, isso irá ocasionar o _undefined behavior_, que pode ser uma invasão de memória, ou pode ocasionar um erro.
+- Para saber mais [Copying and Copy Constructors in C++](https://www.youtube.com/watch?v=BvR1Pgzzr38)
+
+## Tipos de valores
+- a
