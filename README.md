@@ -10,3 +10,13 @@ Curso com o objetivo de apresentar algumas técnicas de otimização na linguage
 - Podemos usar uma função que recebe uma `string_view` e essa função pode tanto receber `string_view` como, também, um ponteiro de caracteres `char*`, tudo isso sem alocar memória na *heap*.
 
 ## Smart pointers (Ponteiros inteligentes)
+- Importante evitar o uso de `new` e `delete` em C++ por conta dos problemas que podem ocorrer, como por exemplo esquecer de usar o `delete` para limpar a memória alocada.
+- Sempre que possível utilizar uma estrutura já existente para gerenciar a memória na *heap*.
+- Para construir um objeto, alocando um espaço de memória na *heap*, sem precisar gerenciar a memória, usamos os **_Smart Pointers_**.
+- Para usar os **_Smart Pointers_** precisamos incluir a biblioteca `memory`, logo `#include <memory>`.
+- Exemplo de um ponteiro único: `std::unique_ptr<Usuario> usuario = std::make_unique<Usuario>(new Usuario("Teste"));`
+- Não é possível fazer e nem passar uma copia de um `unique_ptr` para outro escopo. Mas é possível utilizar o endereço de memória (a referência) para uma função, então: `void ExibeNomeUsuario(std::unique_ptr<Usuario>& usuario)` é possível. Porém o mais comum é utilizar outra estrutura, o `shared_ptr`
+- `shared_ptr` (se lê _Shared Pointers_), por tanto, são ponteiros inteligentes que usamos quando queremos compartilhar o ponteiro, usa-lo em outro escopo.
+- `make_shared()` é usado para criar o ponteiro e não podemos usa-lo com a palavra `new`.
+- Enquanto houver referências do ponteiro `shared_ptr`, o destrutor da classe na qual o ponteiro se refere (e.g. std::shared_ptr<Usuario> usuario = std::make_shared<Usuario>("Teste"); neste caso o ponteiro se refere a Usuario) não será chamado. Só será chamado quando todas as referências que apontam para a referida instância deixar de existir, ou seja, enquanto houver cópias da instancia.
+- Para saber mais sobre _Smart Pointers_: [SMART POINTERS in C++](https://www.youtube.com/watch?v=UOB7-B2MfwA)
