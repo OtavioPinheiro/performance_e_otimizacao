@@ -35,4 +35,76 @@ Curso com o objetivo de apresentar algumas técnicas de otimização na linguage
 - Para saber mais [Copying and Copy Constructors in C++](https://www.youtube.com/watch?v=BvR1Pgzzr38)
 
 ## Tipos de valores
-- a
+**_L-values_**: É tudo aquilo que conseguimos atribuir um endereço de memória. Pode-se entender também que L-values é tudo aquilo que é possível atribuir valores, ou, ainda, aquilo que está, imediatamente, à esquerda do simbolo de atribuição `=`, portanto, toda variável é um _L-value_.
+
+**Exemplo:**
+```c++
+int& RecuperaNumero()
+{
+    static int valor = 10;
+    return valor;
+}
+
+int main()
+{
+    RecuperaNumero() = 5;
+    
+    return 0;
+}
+```
+
+**_R-values_**: De forma similar, _R-values_ é tudo aquilo que não podemos atribuir um endereço de memória. Normalmente os R-values ficam imediatamente à direita do sinal de atribuição `=`, também são conhecidos como valores temporários.
+
+**Exemplo 01**:
+```c++
+int main()
+{
+    int valor = 10;
+    
+    return 0;
+}
+```
+
+No exemplo anterior `valor` é um _L-value_ e `10` é um _R-value_.
+
+**Exemplo 02-01**:
+```c++
+void ExibeValor(Valor& valor)
+{
+    std::cout << valor.retornaValor() << std::endl;
+}
+    
+int main()
+{
+    ExibeValor(Valor(10));
+}
+```
+
+**Exemplo 02-02**:
+```c++
+void ExibeValor(const Valor& valor)
+{
+    std::cout << valor.retornaValor() << std::endl;
+}
+    
+int main()
+{
+    ExibeValor(Valor(10));
+}
+```
+
+**Exemplo 02-03**:
+```c++
+void ExibeValor(const Valor&& valor)
+{
+    std::cout << valor.retornaValor() << std::endl;
+}
+    
+int main()
+{
+    ExibeValor(Valor(10));
+}
+```
+
+No **Exemplo 02-01** temos uma função que recebe por parâmetro uma referência de `Valor` para poder exibir o valor armazenado. Ao chamar a função e passar `Valor(10)` como parâmetro, nesse caso, teremos um problema, pois a função esperava um _L-value_ e foi passado um _R-value_, ou seja, um valor temporário. Mas o **Exemplo 02-02** mostra que é possível fazer com <u>a função aceite o valor temporário se marcarmos o parâmetro como</u> `const`, desta forma estamos especificando que o valor não sofrerá nenhuma alteração. Outra forma de passar um valor temporário para uma função é definir que a função receberá um valor temporário e, para isso, usamos o simbolo `&&`, assim como mostrado no **Exemplo 02-03**. 
+A vantagem de se utilizar os _R-values_ é que não é necessário fazer uma cópia dos dados, podemos simplesmente movê-los.
