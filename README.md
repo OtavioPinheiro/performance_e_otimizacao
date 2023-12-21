@@ -287,13 +287,13 @@ Neste código, a função `outer` aceita tanto _L-Values_ quanto _R-Values_. Den
 Existem algumas regras quando falamos de gestão de recursos em C++. Regra de 0, 3 e 5.
 
 ### Regra do 0 (_Rule of 0_)
-A "_Rule of 0_" sugere que, sempre que possível, evite implementar manualmente o **_copy constructor_**, **_copy operator_**, **_move constructor_**, **_move operator_** em uma classe. <u>Deixe que o compilador gere automaticamente esses membros especiais</u>, **a menos que você precise de um comportamento específico**.
+A "_Rule of 0_" sugere que, sempre que possível, evite implementar manualmente o **_copy constructor_**, **_copy assignment_**, **_move constructor_**, **_move assignment_** em uma classe. <u>Deixe que o compilador gere automaticamente esses membros especiais</u>, **a menos que você precise de um comportamento específico**.
 
 ## Regra do 3 (_Rule of 3_)
-A "_Rule of 3_" diz que, se você precisar implementar um dos três membros especiais (_copy constructor_, _copy operator_ e destrutor), provavelmente precisará implementar todos os três para garantir um comportamento consistente.
+A "_Rule of 3_" diz que, se você precisar implementar um dos três membros especiais (_copy constructor_, _copy assignment_ e destrutor), provavelmente precisará implementar todos os três para garantir um comportamento consistente.
 
 ## Regra do 5 (_Rule of 5_)
-A "_Rule of 5_" estende a "_Rule of 3_" para incluir os dois novos membros especiais introduzidos no C++11: _**move constructor**_ e _**move operator**_. Se você precisar implementar um desses cinco membros especiais, provavelmente precisará implementar todos os cinco para garantir um comportamento consistente.
+A "_Rule of 5_" estende a "_Rule of 3_" para incluir os dois novos membros especiais introduzidos no C++11: _**move constructor**_ e _**move assignment**_. Se você precisar implementar um desses cinco membros especiais, provavelmente precisará implementar todos os cinco para garantir um comportamento consistente.
 
 **Referências**
 - [The rule of three/five/zero](https://en.cppreference.com/w/cpp/language/rule_of_three)
